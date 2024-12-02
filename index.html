@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        
+        form{
+            border: 1px solid #000;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            padding: 30px 30px;
+            gap: 8px;
+            margin-top: 100px;
+            background-color: lightgrey;
+            box-shadow: 5px 5px gray, 10px 10px 10px gray;
+        }
+        #username, #email, #password, #confirm, #gender, #number{
+            font-weight: bold;
+        }
+        #email, #password, #confirm, #gender, #number, #checkbox{
+            margin-top: 10px;
+        }
+        .username, .email, .password, .confirm, .gender, .number{
+            padding: 5px;
+        }
+        #register{
+            width: 20%;
+            padding: 5px;
+            margin: auto;
+            background-color: rgb(133, 133, 241);
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <label id="username">Username:</label>
+        <input type="text" placeholder="Enter your Username" required class="username">
+
+        <label id="email">Email:</label>
+        <input type="email" placeholder="Enter your email" required class="email">
+
+        <label id="password">Password:</label>
+        <input type="password" placeholder="Enter your password" required class="password">
+
+        <label id="confirm">Confirm Password:</label>
+        <input type="password" placeholder="Enter password for confirmation" required class="confirm">
+
+        <label id="gender">Gender:</label>
+        <select class="gender" required>
+            <option></option>
+            <option>Female</option>
+            <option>Male</option>
+            <option>Others</option>
+        </select>
+
+        <label id="number">Mobile Number:</label>
+        <input type="tel" placeholder="Enter your mobile number" class="number" required>
+
+        <label id="checkbox">
+            <input type="checkbox" required> I agree to the terms and conditions
+        </label>
+        
+        <input type="submit" value="Register" id="register">
+    </form>
+
+    <script>
+        const userName = document.getElementsByClassName("username");
+        const emailId = document.getElementsByClassName("email");
+        const password = document.getElementsByClassName("password");
+        const confirmPassword = document.getElementsByClassName("confirm");
+        const gender = document.getElementsByClassName("gender");
+        const mobileNumber = document.getElementsByClassName("number");
+        const registerButton = document.querySelector("#register")
+        
+        registerButton.addEventListener("click", ()=>{
+            // inputUserName = username.value;
+            // inputEmail = emailId.value;
+            // inputPassword = password.value;
+            // inputConfirmPassword = confirmPassword.value;
+            // inputGender = gender.value;
+            // inputMobileNumber = mobileNumber.value;
+            otp = Math.floor(Math.random()*10000)
+            alert(`Your OTP is ${otp}`);
+   
+            // const registerDetails = {
+            //     username: inputUserName,
+            //     email: inputEmail,
+            //     firstpassword1: inputPassword,
+            //     confirmpassword: inputConfirmPassword,
+            //     genderinfo: inputGender,
+            //     mobilenumber: inputMobileNumber
+            // }
+
+            //     const jsonData = JSON.stringify(registerDetails);
+            //     console.log(jsonData)
+
+                
+        })
+
+        
+        inputUserName = username.value;
+        inputEmail = emailId.value;
+        inputPassword = password.value;
+        inputConfirmPassword = confirmPassword.value;
+        inputGender = gender.value;
+        inputMobileNumber = mobileNumber.value;
+
+        // const registerDetails = {
+        //     username: inputUserName,
+        //     email: inputEmail,
+        //     firstpassword1: inputPassword,
+        //     confirmpassword: inputConfirmPassword,
+        //     genderinfo: inputGender,
+        //     mobilenumber: inputMobileNumber
+        // }
+
+
+
+        // const jsonData = JSON.stringify(registerDetails);
+        // console.log(jsonData)
+
+        // localStorage.setItem('Details', jsonData)
+
+        localStorage.setItem("username", inputUserName);
+        localStorage.setItem("email", inputEmail);
+        localStorage.setItem("password", inputPassword);
+        localStorage.setItem("confirm Password", inputConfirmPassword);
+        localStorage.setItem("gender", inputGender);
+        localStorage.setItem("mobile number", inputMobileNumber)
+
+    </script>
+</body>
+</html>
