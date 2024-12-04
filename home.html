@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+
+<body>
+
+    <script type="module">
+        import { data } from "./data.js"
+
+        const parentDiv = document.createElement("div");
+        document.body.appendChild(parentDiv);
+
+        parentDiv.style.display = "flex";
+        parentDiv.style.flexWrap = "wrap";
+        parentDiv.style.gap = "10px";
+        parentDiv.style.justifyContent = "center";
+
+        function cards(image, category, title, description, price) {
+
+            const card = document.createElement("div");
+            parentDiv.appendChild(card);
+            card.style.border = "1px solid black"
+            card.style.width = "400px";
+            card.style.height = "350px";
+            card.style.padding = "10px 10px";
+            card.style.backgroundColor = "rgb(179, 173, 173);"
+
+
+
+            const img = document.createElement("img");
+            const cardCategory = document.createElement("h4");
+            const cardTitle = document.createElement("p");
+            const cardDescription = document.createElement("p");
+            const cardPrice = document.createElement("span");
+
+            img.src = image;
+            card.appendChild(img);
+            img.style.width = "100px";
+            img.style.height = "100px";
+            img.style.display = "block";
+            img.style.margin = "auto";
+
+            cardCategory.textContent = category;
+            card.appendChild(cardCategory);
+            cardCategory.style.textAlign = "center"
+
+            cardTitle.textContent = title;
+            card.appendChild(cardTitle);
+            cardTitle.style.fontWeight = "bold"
+
+            cardDescription.textContent = description;
+            card.appendChild(cardDescription);
+
+            cardPrice.textContent = "Cost : " + price;
+            card.appendChild(cardPrice);
+            cardPrice.style.border = "1px solid black";
+            cardPrice.style.padding = "5px";
+            cardPrice.style.backgroundColor = "lightgray";
+            cardPrice.style.marginLeft = "135px";
+            cardPrice.style.cursor = "pointer"
+        }
+        data.forEach(ele => {
+            cards(ele.image, ele.category, ele.title, ele.description, ele.price)
+        });
+    </script>
+</body>
+
+</html>

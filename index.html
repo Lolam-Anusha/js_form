@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <style>
-        
-        form{
+        #form1 {
             border: 1px solid #000;
             width: 40%;
             display: flex;
@@ -14,40 +14,85 @@
             margin: auto;
             padding: 30px 30px;
             gap: 8px;
-            margin-top: 100px;
+            margin-top: 70px;
             background-color: lightgrey;
             box-shadow: 5px 5px gray, 10px 10px 10px gray;
         }
-        #username, #email, #password, #confirm, #gender, #number{
+
+        #username,
+        #email,
+        #password,
+        #confirm,
+        #gender,
+        #number {
             font-weight: bold;
         }
-        #email, #password, #confirm, #gender, #number, #checkbox{
+
+        #email,
+        #password,
+        #confirm,
+        #gender,
+        #number,
+        #checkbox {
             margin-top: 10px;
         }
-        .username, .email, .password, .confirm, .gender, .number{
+
+        .username,
+        .email,
+        .password,
+        .confirm,
+        .gender,
+        .number {
             padding: 5px;
         }
-        #register{
+
+        #register {
             width: 20%;
             padding: 5px;
             margin: auto;
             background-color: rgb(133, 133, 241);
         }
+
+        #form2 {
+            display: flex;
+            flex-direction: column;
+            width: 15%;
+            margin: auto;
+            margin-top: 30px;
+            /* border: 1px solid black;
+            padding: 10px 10px; */
+        }
+
+        #otp {
+            padding: 5px 5px;
+            outline: 1px solid black;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+        #verify {
+            margin-top: 20px;
+            width: 70px;
+            padding: 5px 5px;
+            margin-left: 60px;
+            background-color: lightseagreen
+        }
     </style>
 </head>
+
 <body>
-    <form>
+    <form id="form1">
         <label id="username">Username:</label>
-        <input type="text" placeholder="Enter your Username" required class="username">
+        <input type="text" placeholder="Enter your Username" class="username" required>
 
         <label id="email">Email:</label>
-        <input type="email" placeholder="Enter your email" required class="email">
+        <input type="email" placeholder="Enter your email" class="email" required>
 
         <label id="password">Password:</label>
-        <input type="password" placeholder="Enter your password" required class="password">
+        <input type="password" placeholder="Enter your password" class="password" required>
 
         <label id="confirm">Confirm Password:</label>
-        <input type="password" placeholder="Enter password for confirmation" required class="confirm">
+        <input type="password" placeholder="Enter password for confirmation" class="confirm" required>
 
         <label id="gender">Gender:</label>
         <select class="gender" required>
@@ -63,75 +108,80 @@
         <label id="checkbox">
             <input type="checkbox" required> I agree to the terms and conditions
         </label>
-        
-        <input type="submit" value="Register" id="register">
+
+        <!-- <input type="submit" value="Register" id="register"> -->
+         <button id="register">Register</button>
+
+    </form>
+    <form id="form2" style="display: none;">
+        <fieldset>
+            <legend>
+                OTP verification
+            </legend>
+            <input type="text" id="otp" placeholder="Enter your OTP" required>
+            <button id="verify">Verify</button>
+        </fieldset>
+
     </form>
 
     <script>
-        const userName = document.getElementsByClassName("username");
-        const emailId = document.getElementsByClassName("email");
-        const password = document.getElementsByClassName("password");
-        const confirmPassword = document.getElementsByClassName("confirm");
-        const gender = document.getElementsByClassName("gender");
-        const mobileNumber = document.getElementsByClassName("number");
-        const registerButton = document.querySelector("#register")
+        const registerButton = document.querySelector("#register");
+        const form1 = document.getElementById("form1")
+        const otpVerify = document.querySelector("#form2")
+        const verifyBtn = document.querySelector("#verify")
+
         
-        registerButton.addEventListener("click", ()=>{
-            // inputUserName = username.value;
-            // inputEmail = emailId.value;
-            // inputPassword = password.value;
-            // inputConfirmPassword = confirmPassword.value;
-            // inputGender = gender.value;
-            // inputMobileNumber = mobileNumber.value;
-            otp = Math.floor(Math.random()*10000)
-            alert(`Your OTP is ${otp}`);
-   
-            // const registerDetails = {
-            //     username: inputUserName,
-            //     email: inputEmail,
-            //     firstpassword1: inputPassword,
-            //     confirmpassword: inputConfirmPassword,
-            //     genderinfo: inputGender,
-            //     mobilenumber: inputMobileNumber
-            // }
+        form1.addEventListener("submit", (e) => {
+            e.preventDefault();
 
-            //     const jsonData = JSON.stringify(registerDetails);
-            //     console.log(jsonData)
+            const userName = document.querySelector(".username").value;
+            const emailId = document.querySelector(".email").value;
+            const password = document.querySelector(".password").value;
+            const confirmPassword = document.querySelector(".confirm").value;
+            const gender = document.querySelector(".gender").value;
+            const mobileNumber = document.querySelector(".number").value;
 
-                
+            if (!userName || !emailId || !password || !confirmPassword || !gender || !mobileNumber) {
+                alert("Enter all the details before registering")
+            }
+            else {
+                if (password !== confirmPassword) {
+                    alert("Password is not matching");
+                    return;
+                }
+                otp = Math.floor(Math.random() * 10000);
+                alert(`Your OTP is ${otp}`)
+                otpVerify.style.display = "block"
+
+                const registerDetails = {
+                    username: userName,
+                    email: emailId,
+                    password: password,
+                    gender: gender,
+                    mobileNumber: mobileNumber
+                };
+
+                localStorage.setItem("username", JSON.parse(JSON.stringify(registerDetails.username)))
+                localStorage.setItem("email", JSON.parse(JSON.stringify(registerDetails.email)))
+                localStorage.setItem("password", JSON.parse(JSON.stringify(registerDetails.password)))
+                localStorage.setItem("gender", JSON.parse(JSON.stringify(registerDetails.gender)))
+                localStorage.setItem("mobileNumber", JSON.parse(JSON.stringify(registerDetails.mobileNumber)))
+
+            }
         })
+        verifyBtn.addEventListener("click",(e)=>{ 
+            e.preventDefault()
+            const otpInput = document.querySelector("#otp").value;
 
-        
-        inputUserName = username.value;
-        inputEmail = emailId.value;
-        inputPassword = password.value;
-        inputConfirmPassword = confirmPassword.value;
-        inputGender = gender.value;
-        inputMobileNumber = mobileNumber.value;
-
-        // const registerDetails = {
-        //     username: inputUserName,
-        //     email: inputEmail,
-        //     firstpassword1: inputPassword,
-        //     confirmpassword: inputConfirmPassword,
-        //     genderinfo: inputGender,
-        //     mobilenumber: inputMobileNumber
-        // }
-
-
-
-        // const jsonData = JSON.stringify(registerDetails);
-        // console.log(jsonData)
-
-        // localStorage.setItem('Details', jsonData)
-
-        localStorage.setItem("username", inputUserName);
-        localStorage.setItem("email", inputEmail);
-        localStorage.setItem("password", inputPassword);
-        localStorage.setItem("confirm Password", inputConfirmPassword);
-        localStorage.setItem("gender", inputGender);
-        localStorage.setItem("mobile number", inputMobileNumber)
+            if(otpInput != otp){
+                 alert("OTP is not matching")
+            }
+            else{
+                window.location.href="login.html";
+            }
+        })
 
     </script>
 </body>
+
 </html>
